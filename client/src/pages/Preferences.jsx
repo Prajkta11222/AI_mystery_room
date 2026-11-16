@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, BookOpen, Check, Languages } from 'lucide-react';
 import Brand from '../components/Brand.jsx';
@@ -7,6 +7,7 @@ import { LanguagePicker, useLocale } from '../i18n.jsx';
 export default function Preferences() {
   const { t } = useLocale();
   const [notice, setNotice] = useState('');
+  useEffect(() => { document.title = `${t('preferences')} — AI Mystery Room`; }, [t]);
   const resetWalkthrough = () => {
     try { localStorage.removeItem('mystery-tutorial-complete'); } catch {}
     setNotice(t('preferenceSaved'));

@@ -19,6 +19,7 @@ export default function CreateCase() {
   const navigate = useNavigate();
   const { locale, t } = useLocale();
   useEffect(() => { idempotencyKey.current = null; }, [locale]);
+  useEffect(() => { document.title = `${t('create')} — AI Mystery Room`; }, [t]);
   const submit = async (event) => {
     event.preventDefault();
     const value = scenario.trim();

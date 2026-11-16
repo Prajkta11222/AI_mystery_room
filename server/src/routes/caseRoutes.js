@@ -207,7 +207,7 @@ router.post('/', generationLimiter, generationConcurrencyLimit, asyncRoute(async
     privateRecord = await CaseSolution.create({
       caseId,
       culpritId: solution.culpritId,
-      culpritName: playerFields.suspects.find((suspect) => suspect.id === solution.culpritId).name,
+      culpritName: playerFields.suspects.find((suspect) => suspect.id === solution.culpritId)?.name || playerFields.suspects[0]?.name || 'Unknown',
       motive: solution.motive,
       method: solution.method,
       solutionSummary: solution.solutionSummary,

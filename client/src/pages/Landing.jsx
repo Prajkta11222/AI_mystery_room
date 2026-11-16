@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Fingerprint, FileSearch, FolderOpen, ScanEye, Settings2, ShieldCheck } from 'lucide-react';
 import Brand from '../components/Brand.jsx';
@@ -5,6 +6,7 @@ import { LanguagePicker, useLocale } from '../i18n.jsx';
 
 export default function Landing() {
   const { t } = useLocale();
+  useEffect(() => { document.title = `${t('caseFiles')} — AI Mystery Room`; }, [t]);
   return <main className="landing">
     <header className="topbar landing-nav"><Brand /><span className="nav-note"><span className="live-dot"/> {t('fictionSystem').toUpperCase()}</span><LanguagePicker/><Link className="nav-link" to="/preferences" aria-label={t('preferences')}><Settings2 size={16}/><span className="preferences-label">{t('preferences')}</span></Link><Link className="nav-link" to="/library" aria-label={t('library')}><FolderOpen className="mobile-nav-icon" size={16}/><span>{t('library')}</span></Link><Link className="nav-link" to="/create" aria-label={t('start')}><span className="mobile-nav-label">{t('start')}</span><ArrowRight size={15}/></Link></header>
     <section className="hero wrap"><div className="hero-copy"><div className="eyebrow"><span className="eyebrow-line"/> {t('landingEyebrow').toUpperCase()}</div><h1>{t('headline1')}<br/>{t('headline2')} <em>{t('headlineEm')}</em></h1><p className="hero-description">{t('intro')}</p><Link to="/create" className="button button-primary">{t('create')} <ArrowRight size={17}/></Link><div className="safe-note"><ShieldCheck size={15}/> {t('fictional')}</div></div>

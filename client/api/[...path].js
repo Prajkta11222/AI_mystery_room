@@ -23,6 +23,10 @@ function copyRequestHeaders(request) {
   return headers;
 }
 
+export const config = {
+  maxDuration: 60,
+};
+
 export default async function handler(request, response) {
   const origin = getApiOrigin();
   const path = Array.isArray(request.query?.path) ? request.query.path.join('/') : '';

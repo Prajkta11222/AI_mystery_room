@@ -40,5 +40,26 @@ export default defineConfig({
       },
     },
   ],
-  server: { host: 'localhost', proxy: { '/api': 'http://localhost:5000' } },
+  server: {
+    host: 'localhost',
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:5000',
+        changeOrigin: true,
+        configure: (proxy) => {
+          proxy.on('error', (err, _req, res) => {
+            if (res.writeHead && !res.headersSent) {
+              res.writeHead(503, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({
+                error: {
+                  code: 'BACKEND_UNAVAILABLE',
+                  message: 'The backend server is not running on port 5000. Please start it using "npm run dev".',
+                },
+              }));
+            }
+          });
+        },
+      },
+    },
+  },
 });
